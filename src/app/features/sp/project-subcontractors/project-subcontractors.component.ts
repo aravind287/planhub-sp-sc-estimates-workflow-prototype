@@ -903,6 +903,20 @@ const ALL_BIDDING_STATUSES = new Set<BiddingStatus>(BIDDING_STATUS_OPTIONS.map(o
     }
     .btn-primary:hover { background: #159a8c; }
     .ph-card { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; margin-top: 16px; }
+
+    @media (max-width: 1024px) {
+      .filters-row { flex-wrap: wrap; gap: 8px; }
+    }
+    @media (max-width: 768px) {
+      .filters-row { flex-direction: column; align-items: stretch; }
+      .search-wrap { width: 100%; }
+      .signal-chips-row { flex-wrap: wrap; }
+    }
+    @media (max-width: 640px) {
+      .col-chk { width: 32px; }
+      th:nth-child(4), td:nth-child(4) { display: none; }
+      th:nth-child(5), td:nth-child(5) { display: none; }
+    }
   `]
 })
 export class ProjectSubcontractorsComponent implements OnInit {

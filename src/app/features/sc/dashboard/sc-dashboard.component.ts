@@ -276,6 +276,16 @@ interface BidProject {
       gap: 12px;
     }
     .empty-state p { margin: 0; font-size: 14px; }
+
+    @media (max-width: 768px) {
+      .filter-row { flex-direction: column; align-items: stretch; }
+      .ph-search { flex: 1; }
+      .ph-search input { width: 100%; }
+    }
+    @media (max-width: 640px) {
+      .project-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .project-status { align-self: flex-start; }
+    }
   `]
 })
 export class ScDashboardComponent {

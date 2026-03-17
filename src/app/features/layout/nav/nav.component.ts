@@ -125,6 +125,8 @@ import { NotificationPanelComponent } from '../../../shared/components/notificat
       padding: 0;
       gap: 2px;
       flex: 1;
+      overflow-x: auto;
+      flex-shrink: 1;
     }
     .nav-item {
       display: flex;
@@ -332,6 +334,35 @@ import { NotificationPanelComponent } from '../../../shared/components/notificat
     .sc-role-toggle-wrap {
       padding: 10px 14px;
       border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    @media (max-width: 900px) {
+      .viewing-as-info { display: none; }
+      .location-badge { display: none; }
+    }
+    @media (max-width: 640px) {
+      .nav-inner { padding: 0 12px; gap: 12px; }
+      .logo-text { display: none; }
+    }
+
+    @media (max-width: 640px) {
+      .sc-sidebar {
+        position: fixed;
+        left: 0; top: 0;
+        width: 100%;
+        height: 56px;
+        flex-direction: row;
+        align-items: center;
+        padding: 0 16px;
+        overflow: hidden;
+        z-index: 200;
+      }
+      .sc-logo-area { border-bottom: none; padding: 0; flex-shrink: 0; }
+      .sc-company-badge { padding: 0 12px; border-bottom: none; flex-shrink: 0; }
+      .sc-add-new { display: none; }
+      .sc-role-toggle-wrap { margin-left: auto; padding: 0; border-top: none; }
+      .sc-nav { display: none; }
+      .sc-nav-bottom { display: none; }
     }
   `]
 })

@@ -277,3 +277,20 @@ body.sc-mode .app-main {
   padding: 0;
   overflow-y: auto;
 }
+
+/* ===== RESPONSIVE ===== */
+
+/* Reduce main padding on smaller screens */
+@media (max-width: 1024px) {
+  .app-main { padding: 16px; }
+}
+@media (max-width: 640px) {
+  .app-main { padding: 12px; }
+  body.sc-mode .app-main { margin-left: 0; padding-top: 56px; }
+}
+
+/* Search input full width on small screens */
+@media (max-width: 640px) {
+  .ph-search { flex: 1; }
+  .ph-search input { width: 100%; }
+}

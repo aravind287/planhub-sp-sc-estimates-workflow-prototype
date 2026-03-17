@@ -239,7 +239,7 @@ interface ProjectGroup {
       align-items: center;
       margin-bottom: 16px;
     }
-    .table-card { padding: 0; overflow: hidden; }
+    .table-card { padding: 0; overflow: hidden; overflow-x: auto; }
 
     /* Main outer header — full-width flex, decoupled from column grid */
     .main-header td {
@@ -483,6 +483,18 @@ interface ProjectGroup {
       animation: slideUp 0.2s ease;
     }
     @keyframes slideUp { from { opacity: 0; transform: translateX(-50%) translateY(10px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+
+    @media (max-width: 768px) {
+      .filters-row { flex-direction: column; align-items: stretch; }
+      .ph-search { flex: 1; }
+      .ph-search input { width: 100%; }
+      .filter-chips-row { flex-wrap: wrap; }
+    }
+    @media (max-width: 640px) {
+      .col-trade { display: none; }
+      .col-submitted-date { display: none; }
+      .col-amount { display: none; }
+    }
   `]
 })
 export class PipelineComponent implements OnInit {

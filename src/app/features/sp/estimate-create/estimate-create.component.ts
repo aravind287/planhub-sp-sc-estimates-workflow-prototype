@@ -102,6 +102,12 @@ import { RouterLink, Router, ActivatedRoute } from '@angular/router';
       padding-top: 4px;
     }
     .send-btn { padding: 10px 24px; font-size: 15px; }
+
+    @media (max-width: 640px) {
+      .create-page { padding: 0; }
+      .form-footer { flex-direction: column; align-items: stretch; }
+      .form-footer a, .form-footer button { text-align: center; justify-content: center; }
+    }
   `]
 })
 export class EstimateCreateComponent implements OnInit {
