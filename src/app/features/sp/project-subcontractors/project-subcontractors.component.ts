@@ -938,8 +938,26 @@ export class ProjectSubcontractorsComponent implements OnInit {
   tradesFilter = signal('');
   scSignals = signal<Set<string>>(new Set());
 
-  lookingCount = computed(() => this.subcontractors().filter(sc => sc.looking_for_suppliers === true).length);
-  requestedCount = computed(() => this.subcontractors().filter(sc => sc.estimateStatus === 'requested').length);
+  lookingCount = computed(() => {
+    const lfs = this.scState.lookingForSuppliers();
+    const est = this.scState.estimateRequested();
+    const scId = this.scState.scId;
+    const pid = this.project()?.id ?? '';
+    return this.subcontractors().filter(sc => {
+      const lfsVal = sc.id === scId ? (lfs[pid] ?? sc.looking_for_suppliers) : sc.looking_for_suppliers;
+      const estVal = sc.id === scId ? (est[pid] ? 'requested' : sc.estimateStatus) : sc.estimateStatus;
+      return lfsVal === true || estVal === 'requested';
+    }).length;
+  });
+  requestedCount = computed(() => {
+    const est = this.scState.estimateRequested();
+    const scId = this.scState.scId;
+    const pid = this.project()?.id ?? '';
+    return this.subcontractors().filter(sc => {
+      const estVal = sc.id === scId ? (est[pid] ? 'requested' : sc.estimateStatus) : sc.estimateStatus;
+      return estVal === 'requested';
+    }).length;
+  });
 
   toggleSignal(key: string) {
     const s = new Set(this.scSignals());
@@ -980,13 +998,17 @@ export class ProjectSubcontractorsComponent implements OnInit {
   filteredSubcontractors = computed(() => {
     // Merge live SC-side state so SP view reflects SC actions in real time
     const lfsOverrides = this.scState.lookingForSuppliers();
+    const estReqOverrides = this.scState.estimateRequested();
     const scId = this.scState.scId;
     const projectId = this.project()?.id ?? '';
-    let scs = this.subcontractors().map(sc =>
-      sc.id === scId
-        ? { ...sc, looking_for_suppliers: lfsOverrides[projectId] ?? sc.looking_for_suppliers }
-        : sc
-    );
+    let scs = this.subcontractors().map(sc => {
+      if (sc.id !== scId) return sc;
+      return {
+        ...sc,
+        looking_for_suppliers: lfsOverrides[projectId] ?? sc.looking_for_suppliers,
+        estimateStatus: estReqOverrides[projectId] ? 'requested' : sc.estimateStatus,
+      };
+    });
     const q = this.searchQuery().toLowerCase();
     if (q) scs = scs.filter(sc => sc.companyName.toLowerCase().includes(q) || sc.contactName.toLowerCase().includes(q) || sc.email.toLowerCase().includes(q));
     if (this.tradesFilter()) scs = scs.filter(sc => sc.trades.includes(this.tradesFilter()));

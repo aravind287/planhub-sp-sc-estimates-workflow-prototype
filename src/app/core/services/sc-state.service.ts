@@ -26,8 +26,12 @@ export class ScStateService {
   /** Bid status per project */
   private readonly _bidStatuses = signal<Record<string, BidStatus>>({});
 
+  /** Estimate request submitted by the SC, keyed by projectId */
+  private readonly _estimateRequested = signal<Record<string, boolean>>({});
+
   readonly lookingForSuppliers = this._lookingForSuppliers.asReadonly();
   readonly bidStatuses = this._bidStatuses.asReadonly();
+  readonly estimateRequested = this._estimateRequested.asReadonly();
 
   isLookingForSuppliers(projectId: string): boolean {
     return this._lookingForSuppliers()[projectId] ?? false;
@@ -43,5 +47,13 @@ export class ScStateService {
 
   setBidStatus(projectId: string, value: BidStatus): void {
     this._bidStatuses.update(m => ({ ...m, [projectId]: value }));
+  }
+
+  isEstimateRequested(projectId: string): boolean {
+    return this._estimateRequested()[projectId] ?? false;
+  }
+
+  setEstimateRequested(projectId: string, value: boolean): void {
+    this._estimateRequested.update(m => ({ ...m, [projectId]: value }));
   }
 }

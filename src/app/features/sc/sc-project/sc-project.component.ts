@@ -307,8 +307,19 @@ interface SupplierRow {
 
               <textarea class="request-textarea" placeholder="Message"></textarea>
 
+              @if (requestSent()) {
+                <div class="sent-banner">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#065f46" stroke-width="2.5" style="flex-shrink:0;">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  Request sent! Suppliers will be notified.
+                </div>
+              }
+
               <div class="request-actions">
-                <button class="btn-primary send-btn">Send Request</button>
+                <button class="btn-primary send-btn" (click)="sendEstimateRequest()" [disabled]="requestSent()">
+                  {{ requestSent() ? 'Request Sent' : 'Send Request' }}
+                </button>
               </div>
 
               <div class="back-link-row">
@@ -731,6 +742,19 @@ interface SupplierRow {
     .request-textarea:focus { border-color: #1BB8A8; }
     .request-textarea::placeholder { color: #a0aec0; }
     .request-actions { display: flex; justify-content: flex-end; margin-bottom: 16px; }
+    .sent-banner {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #dcfce7;
+      border: 1px solid #86efac;
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #065f46;
+      margin-bottom: 12px;
+    }
     .send-btn {
       background: #1BB8A8;
       color: white;
@@ -742,7 +766,8 @@ interface SupplierRow {
       cursor: pointer;
       transition: background 0.12s;
     }
-    .send-btn:hover { background: #159a8c; }
+    .send-btn:hover:not(:disabled) { background: #159a8c; }
+    .send-btn:disabled { background: #a0aec0; cursor: not-allowed; }
     .btn-primary { background: #1BB8A8; color: white; border: none; border-radius: 6px; padding: 9px 20px; font-size: 14px; font-weight: 500; cursor: pointer; }
     .btn-primary:hover { background: #159a8c; }
     .back-link-row { padding-top: 8px; border-top: 1px solid #e2e8f0; }
@@ -905,6 +930,7 @@ export class ScProjectComponent implements OnInit {
   activeTab = signal('suppliers');
   suppliersView = signal<'list' | 'request'>('list');
   project = signal<Project | undefined>(undefined);
+  requestSent = signal(false);
 
   private projectId = signal('');
 
@@ -919,9 +945,15 @@ export class ScProjectComponent implements OnInit {
     this.scState.setBidStatus(this.projectId(), value);
   }
 
+  sendEstimateRequest(): void {
+    this.scState.setEstimateRequested(this.projectId(), true);
+    this.requestSent.set(true);
+  }
+
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id') || 'proj-001';
     this.projectId.set(id);
+    this.requestSent.set(this.scState.isEstimateRequested(id));
     this.projectService.getById(id).subscribe(p => this.project.set(p));
   }
 
