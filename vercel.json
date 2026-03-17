@@ -1,0 +1,5 @@
+{
+  "buildCommand": "npx ng build --configuration production --output-hashing none",
+  "outputDirectory": "dist/planhub-estimates/browser",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
