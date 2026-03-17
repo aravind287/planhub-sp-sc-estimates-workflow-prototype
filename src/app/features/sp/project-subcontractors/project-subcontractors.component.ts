@@ -371,7 +371,7 @@ const ALL_BIDDING_STATUSES = new Set<BiddingStatus>(BIDDING_STATUS_OPTIONS.map(o
     }
     .project-label { font-size: 22px; font-weight: 400; color: #2d3748; }
     h1 { margin: 0; font-size: 22px; font-weight: 700; color: #2d3748; }
-    .header-meta { font-size: 13px; color: #718096; white-space: nowrap; }
+    .header-meta { font-size: 13px; color: #718096; }
     .header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
     .btn-crm {
       padding: 8px 16px;
@@ -400,7 +400,7 @@ const ALL_BIDDING_STATUSES = new Set<BiddingStatus>(BIDDING_STATUS_OPTIONS.map(o
       display: flex;
       border: 1px solid #e2e8f0;
       border-radius: 4px;
-      overflow: hidden;
+      overflow-x: auto;
       margin-bottom: 20px;
     }
     .tab-btn {
@@ -910,6 +910,8 @@ const ALL_BIDDING_STATUSES = new Set<BiddingStatus>(BIDDING_STATUS_OPTIONS.map(o
     @media (max-width: 768px) {
       .filters-row { flex-direction: column; align-items: stretch; }
       .search-wrap { width: 100%; }
+      .outlined-field { min-width: 0; width: 100%; }
+      .ms-trigger { min-width: 0; width: 100%; }
       .signal-chips-row { flex-wrap: wrap; }
     }
     @media (max-width: 640px) {

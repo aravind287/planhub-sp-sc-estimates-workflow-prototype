@@ -19,6 +19,10 @@
   box-sizing: border-box;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
   background: var(--bg);
@@ -26,13 +30,13 @@ body {
   margin: 0;
   font-size: 14px;
   line-height: 1.5;
+  overflow-x: hidden;
 }
 
 .app-main {
   min-height: calc(100vh - 60px);
   padding: 24px;
-  max-width: 1400px;
-  margin: 0 auto;
+  overflow-x: hidden;
 }
 
 /* Table styles */
@@ -264,15 +268,9 @@ body {
 }
 
 /* SC sidebar layout */
-body.sc-mode {
-  display: flex;
-  min-height: 100vh;
-}
 body.sc-mode .app-main {
-  flex: 1;
-  max-width: none;
-  margin: 0;
   margin-left: 160px;
+  width: calc(100% - 160px);
   min-height: 100vh;
   padding: 0;
   overflow-y: auto;
@@ -286,7 +284,7 @@ body.sc-mode .app-main {
 }
 @media (max-width: 640px) {
   .app-main { padding: 12px; }
-  body.sc-mode .app-main { margin-left: 0; padding-top: 56px; }
+  body.sc-mode .app-main { margin-left: 0; width: 100%; padding-top: 56px; }
 }
 
 /* Search input full width on small screens */

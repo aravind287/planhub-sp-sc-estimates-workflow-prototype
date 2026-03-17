@@ -223,6 +223,7 @@ interface ProjectGroup {
       display: flex;
       gap: 8px;
       margin-bottom: 16px;
+      flex-wrap: wrap;
     }
     .chip-count {
       background: rgba(255,255,255,0.3);

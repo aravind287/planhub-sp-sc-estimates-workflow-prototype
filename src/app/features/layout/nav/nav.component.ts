@@ -101,8 +101,6 @@ import { NotificationPanelComponent } from '../../../shared/components/notificat
       height: 60px;
       padding: 0 24px;
       gap: 24px;
-      max-width: 1600px;
-      margin: 0 auto;
     }
     .nav-logo {
       display: flex;

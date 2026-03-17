@@ -368,8 +368,6 @@ interface SupplierRow {
   styles: [`
     .sc-project-page {
       padding: 24px;
-      max-width: 1100px;
-      margin: 0 auto;
       padding-bottom: 80px;
     }
 

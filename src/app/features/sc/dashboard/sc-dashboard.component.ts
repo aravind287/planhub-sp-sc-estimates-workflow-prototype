@@ -97,8 +97,6 @@ interface BidProject {
   styles: [`
     .bid-board-wrap {
       padding: 24px;
-      max-width: 1200px;
-      margin: 0 auto;
     }
     .page-header-row {
       display: flex;
